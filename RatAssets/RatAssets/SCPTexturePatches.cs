@@ -16,6 +16,8 @@ namespace RatAssets
         {
             LoadTextureComponent tex = __instance.gameObject.AddComponent<LoadTextureComponent>();
             tex.texturename = "173";
+            LoadModelComponent mod = __instance.gameObject.AddComponent<LoadModelComponent>();
+            mod.modelname = "173";
         }
     }
 }

@@ -40,6 +40,13 @@
     <Reference Include="BepInEx">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\SCP Labrat\BepInEx\core\BepInEx.dll</HintPath>
     </Reference>
+    <Reference Include="GLTFSerialization">
+      <HintPath>..\UnityGLTF\GLTFSerialization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\UnityGLTF\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -53,6 +60,10 @@
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
       <HintPath>..\..\..\..\SteamLibrary\steamapps\common\SCP Labrat\SCP Labrat_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\SteamLibrary\steamapps\common\SCP Labrat\SCP Labrat_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UNETModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,10 +91,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LoadModelComponent.cs" />
     <Compile Include="LoadTextureComponent.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SCPTexturePatches.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UnityGLTF\UnityGLTF.csproj">
+      <Project>{b220d609-9179-49ac-be82-584220f6b23d}</Project>
+      <Name>UnityGLTF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
