@@ -24,6 +24,19 @@ namespace RatAssets
 
         public void Log(LogLevel lvl, object data) => Logger.Log(lvl, data);
 
+        public void Load(string p, Transform t)
+        {
+            string path = Path.Combine(GetType().Assembly.Location, "..", "GFX", p);
+            GLTFSceneImporter importer = new GLTFSceneImporter(Path.GetFileName(path), new FileLoader(Path.GetDirectoryName(path)), gameObject.GetComponent<AsyncCoroutineHelper>());
+            //importer.IsMultithreaded = false;
+            importer.SceneParent = t;
+            importer.CustomShaderName = "Standard";
+            importer.LoadScene(-1, true, (g, ex) =>
+            {
+                Logger.LogInfo($"Loaded {Path.GetFileName(path)} in game");
+            });
+        }
+
         public void Awake()
         {
             TheMain = this;
@@ -31,7 +44,7 @@ namespace RatAssets
             AsyncCoroutineHelper asyncHelper = gameObject.AddComponent<AsyncCoroutineHelper>();
             Logger.LogInfo("Loading external textures and models...");
             string gfxpath = Path.Combine(GetType().Assembly.Location, "..", "GFX");
-            string[] gfx = Directory.GetFiles(gfxpath, "*.*", SearchOption.AllDirectories);
+            string[] gfx = Directory.GetFiles(gfxpath, "*.*", SearchOption.TopDirectoryOnly);
             foreach (var item in gfx)
             {
                 string ext = Path.GetExtension(item);
@@ -54,13 +67,13 @@ namespace RatAssets
                         }
                     };
                 }
-                else if (ext.ToLower().Equals(".glb"))
+                else if (ext.ToLower().Equals(".glb") || ext.ToLower().Equals(".gltf"))
                 {
                     try
                     {
                         GLTFSceneImporter importer = new GLTFSceneImporter(Path.GetFileName(path), new FileLoader(Path.GetDirectoryName(path)), asyncHelper);
                         //importer.IsMultithreaded = false;
-                        //importer.SceneParent = this.transform;
+                        importer.SceneParent = this.transform;
                         importer.CustomShaderName = "Standard";
                         importer.LoadScene(-1, false, (g, ex) =>
                         {
